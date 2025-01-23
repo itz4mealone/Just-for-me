@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Clock, CheckCircle, XCircle, AlertCircle, Plus } from 'lucide-react';
+import { Clock, CheckCircle, XCircle, AlertCircle, Plus, Trash2 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
 interface Task {
@@ -117,6 +117,20 @@ export default function Tasks() {
       return;
     }
 
+    fetchTasks();
+  }
+  async function deleteTask(taskId: string) {
+    const { error } = await supabase
+      .from('tasks')
+      .delete()
+      .eq('id', taskId);
+  
+    if (error) {
+      console.error('Error deleting task:', error);
+      return;
+    }
+  
+    // Refresh the tasks list
     fetchTasks();
   }
 
@@ -243,6 +257,16 @@ export default function Tasks() {
                         +24h
                       </button>
                     )}
+                    <button
+                      onClick={() => {
+                        if (window.confirm('Are you sure you want to delete this task?')) {
+                          deleteTask(task.id);
+                        }
+                      }}
+                      className="p-2 text-red-500 hover:text-red-600"
+                    >
+                      <Trash2 className="h-5 w-5" /> {/* Add Trash2 to your imports */}
+                      </button>
                   </div>
                 </div>
               </div>
