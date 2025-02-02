@@ -7,13 +7,14 @@ import {
   useNavigate,
   Navigate
 } from 'react-router-dom';
-import { Heart, Menu, X, LogOut, CheckSquare, HomeIcon, UserCircle2, Image, MessageSquare, Phone } from 'lucide-react';
+import { Heart, Menu, X, LogOut, CheckSquare, HomeIcon, UserCircle2, Image, MessageSquare, Phone, TowerControl as GameController } from 'lucide-react';
 import Home from './pages/Home';
 import About from './pages/About';
 import Gallery from './pages/Gallery';
 import Message from './pages/Message';
 import Connect from './pages/Connect';
 import Tasks from './pages/Tasks';
+import Games from './pages/Games';
 import Login from './pages/Login';
 import AuthGuard from './components/AuthGuard';
 import { signOut } from './lib/auth';
@@ -104,6 +105,12 @@ function App() {
                           <span>Tasks</span>
                         </div>
                       </NavLink>
+                      <NavLink to="/games" onClick={handleNavClick}>
+                        <div className="flex items-center space-x-1">
+                          <GameController className="h-5 w-5" />
+                          <span>Games</span>
+                        </div>
+                      </NavLink>
                       <button
                         onClick={handleSignOut}
                         className="flex items-center space-x-1 text-gray-700 hover:text-rose-500 transition-colors duration-200"
@@ -154,6 +161,12 @@ function App() {
                             <span>Tasks</span>
                           </div>
                         </MobileNavLink>
+                        <MobileNavLink to="/games" onClick={handleNavClick}>
+                          <div className="flex items-center space-x-3">
+                            <GameController className="h-5 w-5" />
+                            <span>Games</span>
+                          </div>
+                        </MobileNavLink>
                         <button
                           onClick={handleSignOut}
                           className="w-full text-left px-4 py-2 text-gray-700 hover:text-rose-500 hover:bg-gray-50 transition-colors duration-200 flex items-center space-x-3"
@@ -175,6 +188,7 @@ function App() {
                   <Route path="/message" element={<Message />} />
                   <Route path="/connect" element={<Connect />} />
                   <Route path="/tasks" element={<Tasks />} />
+                  <Route path="/games" element={<Games />} />
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
               </main>
